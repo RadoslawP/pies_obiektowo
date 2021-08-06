@@ -1,3 +1,35 @@
+class Hotel:
+    def __init__(self, nazwa):
+        self.nazwa = nazwa
+        self.buda_imiona = []
+        self.buda_psy = []
+
+    def zameldowanie(self, pies):
+        if isinstance(pies, Pies):
+            self.buda_imiona.append(pies.imie)
+            self.buda_psy.append(pies)
+            print(pies.imie, 'zameldował się w', self.nazwa)
+        else:
+            print('Przykro nam,', self.nazwa, 'przyjmuje tylko psy')
+
+    def wymeldowanie(self, imie):
+        for i in range(0, len(self.buda_imiona)):
+            if imie == self.buda_imiona[i]:
+                pies = self.buda_psy[i]
+                del self.buda_imiona[i]
+                del self.buda_psy[i]
+                print(pies.imie, 'wymeldował się z', self.nazwa)
+                return pies
+        print('Przykro nam,', imie, 'nie jest zameldowany w', self.nazwa)
+        return None
+
+class Kot():
+    def __init__ (self, imie):
+        self.imie = imie
+
+    def miau(self):
+        print(self.imie, 'Robi "miau"')
+
 class Frisbee:
     def __init__(self, kolor):
         self.kolor = kolor
@@ -73,22 +105,43 @@ def wyswietl_psa(pies):
     print(pies.imie, "ma", pies.wiek, "lat i waży", pies.waga)
 
 def kod_testowy():
+    kodi = Pies('Kodi', 12, 18)
+    fafik = Pies('Fafik', 9, 6)
+    rufus = PiesTowarzyszacy('Rufus', 8, 20, 'Jan')
     drab = PiesAportujacy('Drab', 5, 9)
-    niebieskie_frisbee = Frisbee('niebieski')
+    azor = Pies('Azor', 2, 4)
+    kicia = Kot('Kicia')
 
-    print(drab)
-    drab.szczekanie()
-    drab.lapanie(niebieskie_frisbee)
-    drab.szczekanie()
-    print(drab)
-    frisbee = drab.zwracanie()
-    print(frisbee)
+    hotel = Hotel('Hotel dla Psiaków')
+
+    hotel.zameldowanie(kodi)
+    hotel.zameldowanie(fafik)
+    hotel.zameldowanie(rufus)
+    hotel.zameldowanie(drab)
+    hotel.zameldowanie(kicia)
+
+    pies = hotel.wymeldowanie(kodi.imie)
+    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
+    pies = hotel.wymeldowanie(fafik.imie)
+    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
+    pies = hotel.wymeldowanie(rufus.imie)
+    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
+    pies = hotel.wymeldowanie(drab.imie)
+    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
+    pies = hotel.wymeldowanie(azor.imie)
+
+    # niebieskie_frisbee = Frisbee('niebieski')
+    # print(drab)
+    # drab.szczekanie()
+    # drab.lapanie(niebieskie_frisbee)
+    # drab.szczekanie()
+    # print(drab)
+    # frisbee = drab.zwracanie()
+    # print(frisbee)
 
 kod_testowy()
 
-#k odi = Pies('Kodi', 12, 18)
-# fafik = Pies('Fafik', 9, 6)
-# rufus = PiesTowarzyszacy('Rufus', 8, 20, 'Jan')
+
 
 # print('Imię tego psa to', rufus.imie)
 # print('Opiekun tego psa to', rufus.opiekun)
