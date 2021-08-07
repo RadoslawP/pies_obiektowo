@@ -1,27 +1,33 @@
 class Hotel:
     def __init__(self, nazwa):
         self.nazwa = nazwa
-        self.buda_imiona = []
-        self.buda_psy = []
+        #self.buda_imiona = []
+        #self.buda_psy = []
+        self.buda = {}
 
     def zameldowanie(self, pies):
         if isinstance(pies, Pies):
-            self.buda_imiona.append(pies.imie)
-            self.buda_psy.append(pies)
+            self.buda[pies.imie] = pies
+            #self.buda_imiona.append(pies.imie)
+            #self.buda_psy.append(pies)
             print(pies.imie, 'zameldował się w', self.nazwa)
         else:
             print('Przykro nam,', self.nazwa, 'przyjmuje tylko psy')
 
     def wymeldowanie(self, imie):
-        for i in range(0, len(self.buda_imiona)):
-            if imie == self.buda_imiona[i]:
-                pies = self.buda_psy[i]
-                del self.buda_imiona[i]
-                del self.buda_psy[i]
-                print(pies.imie, 'wymeldował się z', self.nazwa)
-                return pies
-        print('Przykro nam,', imie, 'nie jest zameldowany w', self.nazwa)
-        return None
+        if imie in self.buda:
+            pies = self.buda[imie]
+        #for i in range(0, len(self.buda_imiona)):
+        #    if imie == self.buda_imiona[i]:
+        #        pies = self.buda_psy[i]
+        #        del self.buda_imiona[i]
+        #        del self.buda_psy[i]
+            print(pies.imie, 'wymeldował się z', self.nazwa)
+            del self.buda[pies.imie]
+            return pies
+        else:
+            print('Przykro nam,', imie, 'nie jest zameldowany w', self.nazwa)
+            return None
 
 class Kot():
     def __init__ (self, imie):
