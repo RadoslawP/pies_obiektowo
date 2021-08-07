@@ -1,15 +1,15 @@
 class Hotel:
     def __init__(self, nazwa):
         self.nazwa = nazwa
-        #self.buda_imiona = []
-        #self.buda_psy = []
+#       self.buda_imiona = []
+#       self.buda_psy = []
         self.buda = {}
 
     def zameldowanie(self, pies):
         if isinstance(pies, Pies):
             self.buda[pies.imie] = pies
-            #self.buda_imiona.append(pies.imie)
-            #self.buda_psy.append(pies)
+#           self.buda_imiona.append(pies.imie)
+#           self.buda_psy.append(pies)
             print(pies.imie, 'zameldował się w', self.nazwa)
         else:
             print('Przykro nam,', self.nazwa, 'przyjmuje tylko psy')
@@ -17,17 +17,22 @@ class Hotel:
     def wymeldowanie(self, imie):
         if imie in self.buda:
             pies = self.buda[imie]
-        #for i in range(0, len(self.buda_imiona)):
-        #    if imie == self.buda_imiona[i]:
-        #        pies = self.buda_psy[i]
-        #        del self.buda_imiona[i]
-        #        del self.buda_psy[i]
+#        for i in range(0, len(self.buda_imiona)):
+#            if imie == self.buda_imiona[i]:
+#                pies = self.buda_psy[i]
+#                del self.buda_imiona[i]
+#                del self.buda_psy[i]
             print(pies.imie, 'wymeldował się z', self.nazwa)
             del self.buda[pies.imie]
             return pies
         else:
             print('Przykro nam,', imie, 'nie jest zameldowany w', self.nazwa)
             return None
+
+    def pora_szczekania(self):
+        for imie_psa in self.buda:
+            pies = self.buda[imie_psa]
+            pies.szczekanie()
 
 class Kot():
     def __init__ (self, imie):
@@ -115,35 +120,37 @@ def kod_testowy():
     fafik = Pies('Fafik', 9, 6)
     rufus = PiesTowarzyszacy('Rufus', 8, 20, 'Jan')
     drab = PiesAportujacy('Drab', 5, 9)
-    azor = Pies('Azor', 2, 4)
-    kicia = Kot('Kicia')
+    frisbee = Frisbee('czerwony')
+    drab.lapanie(frisbee)
+#   azor = Pies('Azor', 2, 4)
+#   kicia = Kot('Kicia')
 
     hotel = Hotel('Hotel dla Psiaków')
-
     hotel.zameldowanie(kodi)
     hotel.zameldowanie(fafik)
     hotel.zameldowanie(rufus)
     hotel.zameldowanie(drab)
-    hotel.zameldowanie(kicia)
+    hotel.pora_szczekania()
+#    hotel.zameldowanie(kicia)
 
-    pies = hotel.wymeldowanie(kodi.imie)
-    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
-    pies = hotel.wymeldowanie(fafik.imie)
-    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
-    pies = hotel.wymeldowanie(rufus.imie)
-    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
-    pies = hotel.wymeldowanie(drab.imie)
-    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
-    pies = hotel.wymeldowanie(azor.imie)
+#    pies = hotel.wymeldowanie(kodi.imie)
+#    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
+#    pies = hotel.wymeldowanie(fafik.imie)
+#    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
+#    pies = hotel.wymeldowanie(rufus.imie)
+#    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
+#    pies = hotel.wymeldowanie(drab.imie)
+#    print('Wymeldował się', pies.imie + ', który ma', pies.wiek, 'lat i waży', pies.waga, 'kg.')
+#    pies = hotel.wymeldowanie(azor.imie)
 
-    # niebieskie_frisbee = Frisbee('niebieski')
-    # print(drab)
-    # drab.szczekanie()
-    # drab.lapanie(niebieskie_frisbee)
-    # drab.szczekanie()
-    # print(drab)
-    # frisbee = drab.zwracanie()
-    # print(frisbee)
+#    niebieskie_frisbee = Frisbee('niebieski')
+#    print(drab)
+#    drab.szczekanie()
+#    drab.lapanie(niebieskie_frisbee)
+#    drab.szczekanie()
+#    print(drab)
+#    frisbee = drab.zwracanie()
+#    print(frisbee)
 
 kod_testowy()
 
