@@ -34,6 +34,31 @@ class Hotel:
             pies = self.buda[imie_psa]
             pies.szczekanie()
 
+    def zatrudnienie_wyprowadzacza(self, wyprowadzacz):
+        if isinstance(wyprowadzacz, WyprowadzaczPsow):
+            self.wyprowadzacz = wyprowadzacz
+        else:
+            print(wyprowadzacz.imie, 'nie jest wyprowadzaczem psów')
+
+    def usluga_wyprowadzania(self):
+        if self.wyprowadzacz != None:
+            self.wyprowadzacz.wyprowadzanie_psow(self.buda)
+
+class Osoba:
+    def __init__(self, imie):
+        self.imie = imie
+
+    def __str__(self):
+        return "Jestem osobą i mam na imię " + self.imie
+
+class WyprowadzaczPsow(Osoba):
+    def __init__(self, imie):
+        Osoba.__init__(self, imie)
+
+    def wyprowadzanie_psow(self, psy):
+        for imie_psa in psy:
+            psy[imie_psa].chodzenie()
+
 class Kot():
     def __init__ (self, imie):
         self.imie = imie
@@ -63,6 +88,9 @@ class Pies:
     def ludzkie_lata(self):
         print('Twój pies', self.imie, 'miałby jako człowiek', int(self.wiek)*7, 'lat(a).')
 
+    def chodzenie(self):
+        print(self.imie, 'idzie')
+
     def __str__(self):
         return 'Jestem psem o imieniu' + self.imie
 
@@ -91,6 +119,12 @@ class PiesAportujacy(Pies):
             print(self.imie, 'nie ma frisbee')
             return None
 
+    def chodzenie(self):
+        if self.frisbee != None:
+            print('Nie mogę teraz iść, bo aportuję frisbee!')
+        else:
+            Pies.chodzenie(self)
+
     def __str__(self):
         str = 'Jestem psem o imieniu ' + self.imie
         if self.frisbee != None:
@@ -104,7 +138,10 @@ class PiesTowarzyszacy(Pies):
         self.pelni_sluzbe = False
 
     def chodzenie(self):
-        print(self.imie, 'i jego opiekun', self.opiekun, 'wychodzą na spacer')
+        if self.pelni_sluzbe:
+            print(self.imie, 'i jego opiekun', self.opiekun, 'wychodzą na spacer')
+        else:
+            Pies.chodzenie(self)
 
     def szczekanie(self):
         if self.pelni_sluzbe:
@@ -119,18 +156,31 @@ def kod_testowy():
     kodi = Pies('Kodi', 12, 18)
     fafik = Pies('Fafik', 9, 6)
     rufus = PiesTowarzyszacy('Rufus', 8, 20, 'Jan')
+    rufus.pelni_sluzbe = True
     drab = PiesAportujacy('Drab', 5, 9)
-    frisbee = Frisbee('czerwony')
-    drab.lapanie(frisbee)
-#   azor = Pies('Azor', 2, 4)
-#   kicia = Kot('Kicia')
+    azor = Pies('Azor', 2, 4)
 
     hotel = Hotel('Hotel dla Psiaków')
     hotel.zameldowanie(kodi)
     hotel.zameldowanie(fafik)
     hotel.zameldowanie(rufus)
     hotel.zameldowanie(drab)
-    hotel.pora_szczekania()
+
+    jacek = WyprowadzaczPsow('Jacek')
+    hotel.zatrudnienie_wyprowadzacza(jacek)
+
+    hotel.usluga_wyprowadzania()
+
+#   frisbee = Frisbee('czerwony')
+#    drab.lapanie(frisbee)
+#    kodi.chodzenie()
+#    fafik.chodzenie()
+#    rufus.chodzenie()
+#    drab.chodzenie()
+
+#   kicia = Kot('Kicia')
+
+#    hotel.pora_szczekania()
 #    hotel.zameldowanie(kicia)
 
 #    pies = hotel.wymeldowanie(kodi.imie)
